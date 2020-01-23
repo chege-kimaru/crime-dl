@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CRIME-DL</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <style>
+        .tab-content {
+            font-size: medium;
+            color: brown;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">CRIME_LE</a>
+        </div>
+        <!-- /.navbar-header -->
+
+        <ul class="nav navbar-top-links navbar-right">
+            <!-- /.dropdown -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="login.html" onclick="localStorage.clear();"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="index.html" style="color: brown" data-toggle="tooltip" title="Home"><i class="fa fa-dashboard fa-fw"></i>CRIME-DL Home</a>
+                    </li>
+                    <li>
+                        <a href="add.html" style="color: brown" data-toggle="tooltip" title="Add Offence, acts and themes"><i class="fa fa-plus fa-fw"></i> Add Offence</a>
+                    </li>
+                    <li>
+                        <a href="view-all.html" style="color: brown" data-toggle="tooltip" title="View all offences sorted in alphabetic order from A to Z"><i class="fa fa-dashboard fa-fw"></i> All Offences(A-Z)</a>
+                    </li>
+                    <li>
+                        <a href="view-by-theme.html" style="color: brown" data-toggle="tooltip" title="View Offences grouped by the act(in alphabetic order) under which they fall"><i class="fa fa-dashboard fa-fw"></i> View Offences By Theme</a>
+                    </li>
+                    <li>
+                        <a href="view-by-act.html" style="color: brown" data-toggle="tooltip" title="View Offences grouped by their themes(in alphabetic order)"><i class="fa fa-dashboard fa-fw"></i> View Offences By Act</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-target="#about" data-toggle="tab">About</a></li>
+            <li><a data-target="#how" data-toggle="tab">How To Use</a></li>
+            <li><a data-target="#contact" data-toggle="tab">Contact</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="about">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        Due process rights which exists in some form in most Constitutions of the world, and which are
+                        recognized as a key pillar of International Human Rights Law, largely depend on clear,
+                        unambiguous and accessible laws.
+                        Criminal laws are central in this regard since the related rights and privileges emerge from the
+                        existence of what is recognized as an offence in a particular jurisdiction. The observance of
+                        these laws depends on a citizen’s awareness of the existence of that offence.
+                        Read more …
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="how">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p>
+                            This web based application consists of ALL known criminal offences in Kenya for which one
+                            may
+                            be arrested. In order to enhance legal research and jurisprudence around the offences, the
+                            application from time to time attempts to synchronize each of the offences with relevant
+                            cases. Order to remain relevant and useful, all the information is up to date with
+                            legislation in as much as new offences are created.
+                            One may search under an Act of Parliament, under a specific theme/profession/category, or
+                            may peruse through the offences alphabetically. Each offence displays the penalty.
+                            Read more …
+                        </p>
+                        <hr>
+                        <h2>How To Use This Application</h2>
+                        <h3>Register</h3>
+                        <p>Register By Providing your username and password. You will then be redirected to login.</p>
+                        <h3>Login</h3>
+                        <p>Login By Providing your username and password. If successful login, you will be redirected to this home page.</p>
+                        <h3>Add Offence, act or theme</h3>
+                        <p>Click the <b>Add Offence</b> navigation button on the left navigation bar to add offence, act or theme.</p>
+                        <p><b>NB://</b> Changes such as inserting, updating or deleting new items can only be done by system admins.</p>
+                        <h3>Add Case to an Offence</h3>
+                        <p>Open the Offence. On the cases list segment, click the <b>+ button</b> to add a new case for this offence.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="contact">
+                <div class="panel-body">
+                    <div class="alert alert-success" id="contactAlertSuccess" style="display: none">
+                        <a href="#" class="close" data-dismiss="alert"
+                           aria-label="close">&times;</a>
+                        <p>Successfully sent Email</p>
+                    </div>
+                    <div class="alert alert-danger" id="contactAlertDanger" style="display: none">
+                        <a href="#" class="close" data-dismiss="alert"
+                           aria-label="close">&times;</a>
+                        <p>Error Sending Email</p>
+                    </div>
+                    <form role="form" id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName">Your Name:</label>
+                            <input type="text" class="form-control" id="contactName" name="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Your Email:</label>
+                            <input type="text" class="form-control" id="contactEmail" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Subject:</label>
+                            <input type="text" class="form-control" id="subject" name="subject">
+                        </div>
+                        <div class="form-group">
+                            <label>Message:</label>
+                            <textarea class="form-control" id="message" name="message"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">Send</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../dist/js/sb-admin-2.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../dist/js/sb-admin-2.js"></script>
+
+<script src="../js/app/admin.js"></script>
+<script src="../js/app/form.js"></script>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+
+        submit($("#contactForm"), "http://localhost/crime_dl/api/email/send.php", $("#contactAlertSuccess"), $("#contactAlertDanger"), 'CONTACT',
+            function (success) {
+
+            });
+    });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CRIME-DL</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">CRIME_LE</a>
+        </div>
+        <!-- /.navbar-header -->
+
+        <ul class="nav navbar-top-links navbar-right">
+            <!-- /.dropdown -->
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="login.html" onclick="localStorage.clear();"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+        <!-- /.navbar-top-links -->
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href="index.html" style="color: brown" data-toggle="tooltip" title="Home"><i class="fa fa-dashboard fa-fw"></i>CRIME-DL Home</a>
+                    </li>
+                    <li>
+                        <a href="add.html" style="color: brown" data-toggle="tooltip" title="Add Offence, acts and themes"><i class="fa fa-plus fa-fw"></i> Add Offence</a>
+                    </li>
+                    <li>
+                        <a href="view-all.html" style="color: brown" data-toggle="tooltip" title="View all offences sorted in alphabetic order from A to Z"><i class="fa fa-dashboard fa-fw"></i> All Offences(A-Z)</a>
+                    </li>
+                    <li>
+                        <a href="view-by-theme.html" style="color: brown" data-toggle="tooltip" title="View Offences grouped by the act(in alphabetic order) under which they fall"><i class="fa fa-dashboard fa-fw"></i> View Offences By Theme</a>
+                    </li>
+                    <li>
+                        <a href="view-by-act.html" style="color: brown" data-toggle="tooltip" title="View Offences grouped by their themes(in alphabetic order)"><i class="fa fa-dashboard fa-fw"></i> View Offences By Act</a>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <h2 class="text-success text-center">View All Offences (A-Z)</h2>
+        <div class="panel-group" id="titles">
+            <center><img src="../images/loading.gif" alt="Loading" id="loading" width="150" height="150"></center>
+        </div>
+    </div>
+    <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
+
+<div class="modal fade" id="caseFormModal" tabindex="-1" role="dialog" aria-labelledby="caseFormModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="caseFormModalTitle">Add Case</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success" id="caseAlertSuccess" style="display: none">
+                    <a href="#" class="close" data-dismiss="alert"
+                       aria-label="close">&times;</a>
+                    <p>Successfully completed transaction</p>
+                </div>
+                <div class="alert alert-danger" id="caseAlertDanger" style="display: none">
+                    <a href="#" class="close" data-dismiss="alert"
+                       aria-label="close">&times;</a>
+                    <p>Error committing transaction</p>
+                </div>
+                <form role="form" id="caseForm">
+                    <div class="form-group">
+                        <input id="offenceIdInputField" type="hidden" class="form-control"
+                               name="offence_id">
+                    </div>
+                    <div class="form-group">
+                        <input id="offenceTitleInputField" type="hidden" class="form-control"
+                               value="" disabled="disabled">
+                    </div>
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <textarea class="form-control" name="description"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editTitleOffenceModal" tabindex="-1" role="dialog" aria-labelledby="editTitleOffenceModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="editTitleOffenceModalTitle">Edit Offence</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success" id="editTitleOffenceAlertSuccess" style="display: none">
+                    <a href="#" class="close" data-dismiss="alert"
+                       aria-label="close">&times;</a>
+                    <p>Successfully completed transaction</p>
+                </div>
+                <div class="alert alert-danger" id="editTitleOffenceAlertDanger" style="display: none">
+                    <a href="#" class="close" data-dismiss="alert"
+                       aria-label="close">&times;</a>
+                    <p>Error committing transaction</p>
+                </div>
+                <form role="form" id="editTitleOffenceForm">
+                    <div class="form-group">
+                        <input id="titleOffenceIdInputField" type="hidden" class="form-control"
+                               name="id">
+                    </div>
+                    <div class="form-group">
+                        <input id="titleOffenceTitleInputField" type="text" name="title" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="titleOffenceDescriptionInputField" name="description" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input id="titleOffencePenaltyInputField" type="text" name="penalty" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input id="titleOffenceFullProvisionInputField" type="text" name="full_provision" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editTitleOffenceCaseModal" tabindex="-1" role="dialog" aria-labelledby="editTitleOffenceCaseModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="editTitleOffenceCaseModalTitle">Edit Case</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success" id="editTitleOffenceCaseAlertSuccess" style="display: none">
+                    <a href="#" class="close" data-dismiss="alert"
+                       aria-label="close">&times;</a>
+                    <p>Successfully completed transaction</p>
+                </div>
+                <div class="alert alert-danger" id="editTitleOffenceCaseAlertDanger" style="display: none">
+                    <a href="#" class="close" data-dismiss="alert"
+                       aria-label="close">&times;</a>
+                    <p>Error committing transaction</p>
+                </div>
+                <form role="form" id="editTitleOffenceCaseForm">
+                    <div class="form-group">
+                        <input id="titleOffenceCaseIdInputField" type="hidden" class="form-control"
+                               name="id">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="titleOffenceCaseDescriptionInputField" name="description" class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- jQuery -->
+<script src="../vendor/jquery/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../dist/js/sb-admin-2.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../dist/js/sb-admin-2.js"></script>
+
+<script src="../js/app/admin.js"></script>
+<script src="../js/app/byTitle.js"></script>
+
+<script src="../js/app/form.js"></script>
+<script src="../js/app/delete.js"></script>
+<script type="text/javascript">
+
+    function editTitleOffenceClicked() {
+        $('#titleOffenceIdInputField').val(localStorage.getItem('OFFENCE'));
+        $('#titleOffenceTitleInputField').val($("#titleOffence" + localStorage.getItem('OFFENCE')+ "title").text());
+        $('#titleOffenceDescriptionInputField').val($("#titleOffence" + localStorage.getItem('OFFENCE')+ "description").text());
+        $('#titleOffencePenaltyInputField').val($("#titleOffence" + localStorage.getItem('OFFENCE')+ "penalty").text());
+        $('#titleOffenceFullProvisionInputField').val($("#titleOffence" + localStorage.getItem('OFFENCE')+ "fullProvision").text());
+    }
+
+    function editTitleOffenceCaseClicked() {
+        $('#titleOffenceCaseIdInputField').val(localStorage.getItem('CASE'));
+        $('#titleOffenceCaseDescriptionInputField')
+            .val($("#titleOffence" + localStorage.getItem('OFFENCE') + "Case" + localStorage.getItem('CASE') + "description").text());
+    }
+
+    $(document).ready(function () {
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        if(!localStorage.getItem('jwt')) {
+            location.href = 'login.html';
+        }
+        if(localStorage.getItem('role') != 1) {
+            $('.ADMIN-ONLY').attr('disabled', true);
+        } else {
+            $('.ADMIN-ONLY').attr('disabled', false);
+        }
+
+
+        submit($("#caseForm"), "http://localhost/crime_dl/api/casec/create.php", $("#caseAlertSuccess"), $("#caseAlertDanger"), 'CASE',
+            function () {
+                $.ajax({
+                    url: 'http://localhost/crime_dl/api/casec/read.php?offence_id=' + localStorage.getItem('OFFENCE'),
+                    dataType: 'json',
+                    success: function (data) {
+                        var i = 0;
+                        $('#titleOffence' + localStorage.getItem('OFFENCE') + 'Cases').empty();
+                        $.each(data.data, function (i, casec) {
+                            i++;
+                            $('#titleOffence' + localStorage.getItem('OFFENCE') + 'Cases').append(
+                                '<div class="panel panel-default">\n' +
+                                ' <div class="panel-heading" id="titleOffence' + localStorage.getItem('OFFENCE') + 'Case' + casec.id + 'heading">\n' +
+                                '   <h4 class="panel-title">\n' +
+                                '    <a data-toggle="collapse" data-parent="#titleOffence' + localStorage.getItem('OFFENCE') + 'Cases" href="#titleOffence' + localStorage.getItem('OFFENCE') + 'Case' + casec.id + '">Case ' + i + '</a>\n' +
+                                '   </h4>\n' +
+                                ' </div>\n' +
+                                ' <div id="titleOffence' + localStorage.getItem('OFFENCE') + 'Case' + casec.id + '" class="panel-collapse collapse">\n' +
+                                '    <div class="panel-body">\n' +
+                                '       <button class="btn btn-danger ADMIN-ONLY" onclick="deleteTitleOffenceCase()"><i class="fa fa-trash"></i></button>' +
+                                '       <button class="btn btn-success ADMIN-ONLY" onclick="editTitleOffenceCaseClicked()" data-toggle="modal" data-target="#editTitleOffenceCaseModal"><i class="fa fa-pencil"></i></button></b><br>' +
+                                '       <p id="titleOffence' + localStorage.getItem('OFFENCE') + 'Case' + casec.id + 'description">' + casec.description + '</p>\n' +
+                                '    </div>' +
+                                ' </div>\n' +
+                                '</div>'
+                            );
+                            $('#titleOffence' + localStorage.getItem('OFFENCE') + 'Case' + casec.id + 'heading').click(function (event) {
+                                localStorage.setItem('CASE', casec.id);
+                            });
+                        });
+                    }
+                });
+            });
+
+        submit($("#editTitleOffenceForm"), "http://localhost/crime_dl/api/offence/update.php", $("#editTitleOffenceAlertSuccess"), $("#editTitleOffenceAlertDanger"), 'EDIT_TITLE_OFFENCE',
+            function (success) {
+                if(success) {
+                    $("#titleOffence" + localStorage.getItem('OFFENCE')+ "title").text($('#titleOffenceTitleInputField').val());
+                    $("#titleOffence" + localStorage.getItem('OFFENCE')+ "description").text($('#titleOffenceDescriptionInputField').val());
+                    $("#titleOffence" + localStorage.getItem('OFFENCE')+ "penalty").text($('#titleOffencePenaltyInputField').val());
+                    $("#titleOffence" + localStorage.getItem('OFFENCE')+ "fullProvision").text($('#titleOffenceFullProvisionInputField').val());
+                }
+            });
+
+        submit($("#editTitleOffenceCaseForm"), "http://localhost/crime_dl/api/casec/update.php", $("#editTitleOffenceCaseAlertSuccess"), $("#editTitleOffenceCaseAlertDanger"), 'EDIT_TITLE_OFFENCE_CASE',
+            function (success) {
+                if(success)
+                    $("#titleOffence" + localStorage.getItem('OFFENCE') + "Case" + localStorage.getItem('CASE') + "description")
+                        .text($('#titleOffenceCaseDescriptionInputField').val());
+            });
+    });
+</script>
+
+</body>
+
+</html>

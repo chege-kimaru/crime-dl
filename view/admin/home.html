@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRIME_DL</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style>
+        .navbar-default {
+            background: linear-gradient(to top, #ff8080, #ffe5e5); /* Standard syntax */
+            color: black;
+        }
+
+        .btn-warning {
+            background: linear-gradient(to top, #ff8080, #ffe5e5); /* Standard syntax */
+            color: black;
+            height: 40px;
+            width: 300px;
+        }
+
+        #searchBtn {
+            width: 120px;
+            font-weight: bold;
+            font-size: 1.5em;
+            height: 50px;
+        }
+
+        .selectedBtn {
+            border-color: black;
+            border-width: 5px;
+            border-style: solid;
+        }
+
+        .panel-default > .panel-heading .offencePanel {
+            background: linear-gradient(to bottom, #cccccc, #ffe5e5);
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="home.html">CRIME_DL</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="home.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="login.html"><i class="fa fa-sign-in fa-fw"></i> Login as Admin</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4" id="categoryBtns">
+            <button id="viewByActBtn" class="btn btn-warning" onclick="categoryClicked(this)">View Offences By Act</button>
+        </div>
+        <div class="col-sm-4">
+            <button id="viewByThemeBtn" class="btn btn-warning" onclick="categoryClicked(this)">View Offences By Theme</button>
+        </div>
+        <div class="col-sm-4">
+            <button id="viewByTitleBtn" class="btn btn-warning" onclick="categoryClicked(this)">All Offences(A-Z)</button>
+        </div>
+    </div>
+    <br>
+    <div class="text-center">
+        <button id="searchBtn" class="btn btn-warning" onclick="searchClicked()">Search</button>
+    </div>
+
+    <hr>
+
+    <div class="container" id="#data">
+        <div class="panel-group" id="titles">
+            <div class="text-center"><img src="../images/loading.gif" alt="Loading"  width="150" height="150"></div>
+        </div>
+        <div class="panel-group" id="acts">
+            <div class="text-center"><img src="../images/loading.gif" alt="Loading"  width="150" height="150"></div>
+        </div>
+        <div class="panel-group" id="themes">
+            <div class="text-center"><img src="../images/loading.gif" alt="Loading"  width="150" height="150"></div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/popper.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+
+<script src="../js/app/byTitle.js"></script>
+<script src="../js/app/byAct.js"></script>
+<script src="../js/app/byTheme.js"></script>
+
+<script>
+    function categoryClicked(source) {
+        $('#viewByActBtn').removeClass('selectedBtn');
+        $('#viewByThemeBtn').removeClass('selectedBtn');
+        $('#viewByTitleBtn').removeClass('selectedBtn');
+
+        $(source).addClass('selectedBtn');
+    }
+
+    function unhide(current) {
+        $('#titles').hide();
+        $('#themes').hide();
+        $('#acts').hide();
+
+        $(current).show();
+    }
+
+    function searchClicked() {
+        const selectedId = $('.selectedBtn').attr('id');
+
+        if(selectedId == 'viewByActBtn') {
+            unhide($('#acts'));
+        } else if(selectedId == 'viewByThemeBtn') {
+            unhide($('#themes'))
+        } else if(selectedId == 'viewByTitleBtn') {
+            unhide($('#titles'));
+        } else {
+            unhide(null);
+        }
+    }
+
+
+    $(document).ready(function() {
+        localStorage.setItem('role', '');
+
+        $('#acts').hide();
+        $('#themes').hide();
+        $('#titles').hide();
+    });
+</script>
+</body>
+</html>
